@@ -1,0 +1,145 @@
+<div class="card mt-2">
+  <div class="card-header d-flex justify-content-between">
+    <div class="d-flex">
+      <mat-icon>person_add</mat-icon>
+      <h5 class="ms-2">Add User</h5>
+    </div>
+    <app-post-confirmation *ngIf="isValid"></app-post-confirmation>
+  </div>
+  <div class="card-body">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          name="username"
+          #username="ngModel"
+          [(ngModel)]="user.username"
+          required
+        />
+      </div>
+
+      <div class="form-group" *ngIf="user.notifications_status">
+        <label for="notificationsMode">Notifications Mode</label>
+        <select
+          id="notificationsMode"
+          class="form-select"
+          name="notificationsMode"
+          #notificationsMode="ngModel"
+          [(ngModel)]="user.notifications_preffered_mode"
+          required
+        >
+          <option></option>
+          <option>Email</option>
+          <option>Gotify</option>
+          <option>Discord</option>
+        </select>
+      </div>
+      <div
+        class="additional-info"
+        *ngIf="user.notifications_preffered_mode == 'Email'"
+      >
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="email"
+            #email="ngModel"
+            [(ngModel)]="user.email"
+            required
+          />
+        </div>
+      </div>
+      <div
+        class="additional-info"
+        *ngIf="user.notifications_preffered_mode == 'Discord'"
+      >
+        <div class="form-group">
+          <label for="discord">Discord Webhook</label>
+          <input
+            type="text"
+            id="discord"
+            class="form-control"
+            name="discordWebhook"
+            #discordWebhook="ngModel"
+            [(ngModel)]="user.discord_webhook"
+            required
+          />
+        </div>
+      </div>
+      <div
+        class="additional-info"
+        *ngIf="user.notifications_preffered_mode == 'Gotify'"
+      >
+        <div class="form-group">
+          <label for="gotify_server">Gotify Server Ip</label>
+          <input
+            type="text"
+            id="gotify_server"
+            class="form-control"
+            name="gotifyServer"
+            #gotifyServer="ngModel"
+            [(ngModel)]="user.gotify_server_ip"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="gotify_token">Gotify Token</label>
+          <input
+            type="text"
+            id="gotify_token"
+            class="form-control"
+            name="gotifyToken"
+            #gotifyToken="ngModel"
+            [(ngModel)]="user.gotify_token"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-check mt-1">
+        <input
+          type="checkbox"
+          id="notificationsStatus"
+          class="form-check-input"
+          name="notificationsStatus"
+          #notificationsStatus="ngModel"
+          [(ngModel)]="user.notifications_status"
+        />
+        <label class="form-check-label" for="notificationsStatus">
+          Enable Notifications
+        </label>
+      </div>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!userForm.valid"
+          *ngIf="!isNew"
+        >
+          Add User
+        </button>
+        <button
+          type="submit"
+          class="btn btn-warning m-1"
+          [disabled]="!userForm.valid"
+          *ngIf="isNew"
+        >
+          Update User
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger m-1"
+          (click)="resetForm(userForm)"
+          [disabled]="!userForm.valid"
+          *ngIf="isNew"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

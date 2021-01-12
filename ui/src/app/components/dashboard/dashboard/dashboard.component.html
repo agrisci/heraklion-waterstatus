@@ -1,0 +1,27 @@
+<div *ngIf="areas?.length; else loader">
+  <app-dashboard-overview [areas]="areas"></app-dashboard-overview>
+</div>
+<div *ngIf="subscriptions?.length; else options">
+  <app-dashboard-chart
+    *ngFor="let subscription of primaryUserSubscriptions"
+    [areas]="areas"
+    [subscription]="subscription"
+  ></app-dashboard-chart>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+
+<ng-template #options class="subscriptions">
+  <div class="row mt-2">
+    <div class="col text-center">
+      <button routerLink="users" type="button" class="btn btn-dark m-2">
+        <mat-icon>add</mat-icon> Add User
+      </button>
+      <button routerLink="subscriptions" type="button" class="btn btn-dark m-2">
+        <mat-icon>add</mat-icon> Add Subscription
+      </button>
+    </div>
+  </div>
+</ng-template>

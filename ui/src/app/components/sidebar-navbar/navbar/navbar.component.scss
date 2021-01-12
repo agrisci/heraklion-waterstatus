@@ -1,0 +1,44 @@
+.navbar-custom {
+  background-color: #0072bb;
+  height: 57px;
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: white;
+}
+.navbar-brand:focus {
+  outline: none;
+}
+.navbar-brand:hover {
+  cursor: pointer;
+}
+
+#menu {
+  color: white;
+}
+
+#menu:hover {
+  cursor: pointer;
+}
+
+button span {
+  margin-left: 10px;
+}
+
+li button:focus {
+  outline: 0;
+}
+
+.mat-icon {
+  vertical-align: middle;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  .container-fluid {
+    display: none;
+  }
+}

@@ -1,0 +1,11 @@
+<app-subscription-form
+  [users]="users"
+  [areas]="areas"
+  [subscriptions]="subscriptions"
+  (updatedSubscriptionList)="updateSubscriptionList($event)"
+></app-subscription-form>
+<app-subscription-list
+  [users]="users"
+  [areas]="areas"
+  [subscriptions]="subscriptions"
+></app-subscription-list>

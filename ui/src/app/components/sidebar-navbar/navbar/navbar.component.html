@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+  <div class="container-fluid">
+    <div routerLink="" class="navbar-brand">
+      <mat-icon> water_damage </mat-icon> WaterStatus
+    </div>
+
+    <div class="btn-group">
+      <mat-icon
+        id="menu"
+        aria-hidden="false"
+        (click)="toggleMenu()"
+        aria-label="Menu"
+        >{{ isMenuOpen ? "menu_open" : "menu" }}</mat-icon
+      >
+      <ul
+        class="dropdown-menu dropdown-menu-end"
+        [ngClass]="{ show: isMenuOpen }"
+      >
+        <li>
+          <button
+            class="dropdown-item d-flex"
+            type="button"
+            routerLink=""
+            (click)="toggleMenu()"
+          >
+            <mat-icon>dashboard</mat-icon>
+            <span>Dashboard</span>
+          </button>
+        </li>
+        <li class>
+          <button
+            class="dropdown-item d-flex"
+            type="button"
+            routerLink="subscriptions"
+            (click)="toggleMenu()"
+          >
+            <mat-icon>notifications</mat-icon>
+            <span>Subscriptions</span>
+          </button>
+        </li>
+        <li class>
+          <button
+            class="dropdown-item d-flex"
+            type="button"
+            routerLink="users"
+            (click)="toggleMenu()"
+          >
+            <mat-icon>people</mat-icon>
+            <span>Users</span>
+          </button>
+        </li>
+        <li>
+          <button
+            class="dropdown-item d-flex"
+            type="button"
+            routerLink="settings"
+            (click)="toggleMenu()"
+          >
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

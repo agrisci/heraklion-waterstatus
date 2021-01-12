@@ -1,0 +1,59 @@
+.background {
+  background-color: #0072bb;
+}
+
+.active {
+  background-color: #005386;
+  border-left: 5px solid rgb(17, 16, 16) !important;
+  border-radius: 3px;
+}
+
+span {
+  margin-left: 10px;
+}
+
+a:hover {
+  background-color: #005386;
+  border-radius: 3px;
+}
+
+.sidebar-wrapper {
+  background-color: #0072bb;
+  min-height: 100vh;
+  height: 100%;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+
+  .sidebar-heading {
+    font-size: 1.3rem;
+    font-weight: 450;
+    letter-spacing: 2px;
+    padding: 0.875rem 1.25rem;
+    color: white;
+
+    .mat-icon {
+      vertical-align: middle;
+      margin-bottom: 5px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .list-group {
+    width: 15rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar-wrapper {
+    margin-left: 0;
+  }
+}

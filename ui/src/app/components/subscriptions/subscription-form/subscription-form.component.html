@@ -1,0 +1,60 @@
+<div class="card mt-2">
+  <div class="card-header d-flex justify-content-between">
+    <div class="d-flex">
+      <mat-icon>person_add</mat-icon>
+      <h5 class="ms-2">Add Subscription</h5>
+    </div>
+    <app-post-confirmation *ngIf="isValid"></app-post-confirmation>
+  </div>
+  <div class="card-body">
+    <form #subscriptionForm="ngForm" (ngSubmit)="onSubmit(subscriptionForm)">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="user">User</label>
+            <select
+              id="user"
+              class="form-select"
+              #userId
+              name="userId"
+              [(ngModel)]="subscription.user_id"
+              required
+            >
+              <option value="null">Select user...</option>
+              <option *ngFor="let user of users" value="{{ user.id }}">
+                {{ user.username }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="area">Area</label>
+            <select
+              id="area"
+              class="form-select"
+              #areaId
+              name="areaId"
+              [(ngModel)]="subscription.area_id"
+              required
+            >
+              <option value="null">Select area...</option>
+              <option *ngFor="let area of areas" value="{{ area.id }}">
+                {{ area.name | area }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button
+          type="submit"
+          class="btn btn-dark mt-3"
+          [disabled]="subscriptionForm.invalid"
+        >
+          Add Subscription
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

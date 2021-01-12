@@ -1,0 +1,16 @@
+.custom-card {
+  min-width: 12rem;
+  min-height: 11rem;
+
+  .mat-icon {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .username {
+    font-weight: 500;
+  }
+}
+p {
+  margin: 0.3rem 0rem;
+}

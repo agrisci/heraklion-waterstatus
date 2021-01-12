@@ -1,0 +1,5 @@
+<app-user-form
+  [users]="users"
+  (updatedUserList)="updateUserList($event)"
+></app-user-form>
+<app-user-list [users]="users"></app-user-list>

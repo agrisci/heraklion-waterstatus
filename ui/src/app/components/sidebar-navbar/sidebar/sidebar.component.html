@@ -1,0 +1,35 @@
+<div class="border-right sidebar-wrapper">
+  <div routerLink="" class="sidebar-heading">
+    <mat-icon> water_damage </mat-icon> WaterStatus
+  </div>
+  <div class="list-group list-group-flush background">
+    <a
+      routerLink=""
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="list-group-item border-0 my-1 py-3 text-white background d-flex"
+      ><mat-icon>dashboard</mat-icon><span>Dashboard</span>
+    </a>
+    <a
+      routerLink="subscriptions"
+      [routerLinkActive]="['active']"
+      class="list-group-item border-0 my-1 py-3 text-white background d-flex"
+    >
+      <mat-icon>notifications</mat-icon> <span>Subscriptions</span></a
+    >
+    <a
+      routerLink="users"
+      [routerLinkActive]="['active']"
+      class="list-group-item border-0 my-1 py-3 text-white background d-flex"
+    >
+      <mat-icon>people</mat-icon> <span>Users</span></a
+    >
+    <a
+      routerLink="settings"
+      [routerLinkActive]="['active']"
+      class="list-group-item border-0 my-1 py-3 text-white background d-flex"
+    >
+      <mat-icon>settings</mat-icon> <span>Settings</span></a
+    >
+  </div>
+</div>

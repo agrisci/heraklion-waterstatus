@@ -1,0 +1,42 @@
+<div class="card mt-3">
+  <div class="card-header d-flex">
+    <mat-icon>people</mat-icon>
+    <h5 class="ms-2">Users</h5>
+  </div>
+  <div class="card-body" *ngIf="users?.length > 0; else noUsers">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let user of users">
+        <div class="card mt-2 custom-card">
+          <div class="card-header d-flex justify-content-between">
+            <p class="username">
+              {{ user.username }}
+            </p>
+            <div class="icons d-flex align-items-center">
+              <mat-icon (click)="editUser(user)">edit</mat-icon>
+              <mat-icon (click)="deleteUser(user)">delete</mat-icon>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>Notifications: {{ user.notifications_status | yesNo }}</p>
+            <p *ngIf="user.notifications_preffered_mode !== ''">
+              Notifications Mode: {{ user.notifications_preffered_mode }}
+            </p>
+            <p *ngIf="user.discord_webhook !== ''">
+              Discord Webhook: {{ user.discord_webhook }}
+            </p>
+            <p *ngIf="user.email !== ''">Email: {{ user.email }}</p>
+            <p *ngIf="user.gotify_server_ip !== ''">
+              Gotify Server IP: {{ user.gotify_server_ip }}
+            </p>
+            <p *ngIf="user.gotify_token !== ''">
+              Gotify Token: {{ user.gotify_token }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noUsers>
+  <h5 class="text-center m-3">No Users</h5>
+</ng-template>

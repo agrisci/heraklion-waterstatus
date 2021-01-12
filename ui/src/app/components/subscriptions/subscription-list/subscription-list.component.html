@@ -1,0 +1,35 @@
+<div class="card mt-3">
+  <div class="card-header d-flex">
+    <mat-icon>notifications</mat-icon>
+    <h5 class="ms-1">Subscriptions</h5>
+  </div>
+  <div
+    class="card-body"
+    *ngIf="subscriptions?.length > 0; else noSubscriptions"
+  >
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let user of users">
+        <div class="card mt-2">
+          <div class="card-header">
+            <p class="">{{ user.username }}</p>
+          </div>
+          <div class="card-body">
+            <div
+              class="subscriptions d-flex justify-content-between"
+              *ngFor="let subscription of getSubscriptions(user)"
+            >
+              <p>{{ getAreaName(subscription) | area }}</p>
+              <mat-icon (click)="deleteSubscription(subscription)"
+                >clear</mat-icon
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noSubscriptions>
+  <h5 class="text-center m-3">No Subscriptions</h5>
+</ng-template>

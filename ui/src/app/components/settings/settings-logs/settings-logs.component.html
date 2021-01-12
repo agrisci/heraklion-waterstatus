@@ -1,0 +1,33 @@
+<div class="card mt-3">
+  <div class="card-header d-flex">
+    <mat-icon>folder</mat-icon>
+    <h5 class="ms-1">Application Logs</h5>
+  </div>
+  <div class="card-body">
+    <div class="form-row">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control mt-2 mb-2"
+          id="filter"
+          placeholder="Filter by..."
+          ngModel
+          #filter="ngModel"
+          (keyup)="filterLogs(filter.value)"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-12 logs"
+        *ngIf="logs.length > 0 && !filtered; else filteredList"
+      >
+        <p *ngFor="let log of logs">{{ log }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #filteredList>
+  <p *ngFor="let log of filteredLogs">{{ log }}</p>
+</ng-template>

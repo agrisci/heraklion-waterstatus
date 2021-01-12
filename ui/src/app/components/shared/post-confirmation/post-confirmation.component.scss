@@ -1,0 +1,14 @@
+.check {
+  background-color: rgb(38, 172, 38);
+  color: white;
+  border-radius: 100%;
+  width: 1.9rem;
+  height: 1.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .mat-icon {
+    margin: 0;
+    padding: 0;
+  }
+}
