@@ -10,7 +10,7 @@ import queue
 import time
 import os
 
-
+from waterstatus import logger
 from waterstatus.db import *
 from waterstatus.schemas import *
 
@@ -59,14 +59,14 @@ class Notifier:
                     server_password = settings_dump['server_password']
                     email = user_dump['email']
                     if server_email and server_password:
-                        #logging.info(f"Attempting to notify via email, user {username} about area {area} status change to {status}...")
+                        logger.info(f"Attempting to notify via email, user {username} about area {area} status change to {status}...")
                         self.__send_email_notification(area, email, server_email, server_password, status)
                     else:
                         pass
-                        #logging.info(f"No server email and/or password registered. Skipping email notification...")
+                        logger.info(f"No server email and/or password registered. Skipping email notification...")
                 elif notifications_preffered_mode == 'Discord':
                     webhook = user_dump['discord_webhook']
-                    #logging.info(f"Attempting to notify via discord, user {username} about area {area} status change to {status}...")
+                    logger.info(f"Attempting to notify via discord, user {username} about area {area} status change to {status}...")
                     self.__send_discord_notification(area, webhook, status)
                 elif notifications_preffered_mode == 'Gotify':
                     pass
@@ -78,17 +78,16 @@ class Notifier:
             text = "Επαναφορά διανομής νερού στην περιοχή: " + area
         try:
             subject = "Waterstatus Notifier"
-            port = 465  # For SSL
+            port = 465
             message = 'Subject: {}\n\n{}'.format(subject, text)
-            # Create a secure SSL context
             context = ssl.create_default_context()
             with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
                 server.login(server_email, server_password)
                 server.sendmail(server_email, email, message.encode("utf-8"))
-            # logging.info(f"Email sent to {email} with subject: {text}")
+            logger.info(f"Email sent to {email} with subject: {text}")
         except:
             pass
-            # logging.info("No sender email or password provided. Skipping email notification...")
+            logger.info("No sender email or password provided. Skipping email notification...")
             
     def __send_discord_notification(self, area, webhook, status):
         webhook = DiscordWebhook(url=webhook)
@@ -114,7 +113,7 @@ def scraper_thread():
         try:
             deyah = scraper.get("https://www.deyah.gr/xartis-udreusis-hrakleiou/").text
         except:
-            # logging.exception(f"Scraper Connection Error occurred. Will try again in {interval} minutes...")
+            logger.exception(f"Scraper Connection Error occurred. Will try again in {interval} minutes...")
             time.sleep(interval)
             continue
         else:
