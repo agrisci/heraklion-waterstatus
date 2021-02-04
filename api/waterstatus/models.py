@@ -21,8 +21,8 @@ class User(db.Model): # A user has many subscriptions
     gotify_token = db.Column(db.String(), default="")
     gotify_server_ip = db.Column(db.String(), default="")
     discord_webhook = db.Column(db.String(), default="")
-    notifications_preffered_mode = db.Column(db.String(), default="") #discord,gotify,email etc
-    notifications_status = db.Column(db.Boolean(), default=False) #on or off
+    notifications_preffered_mode = db.Column(db.String(), default="")
+    notifications_status = db.Column(db.Boolean(), default=False)
     subscriptions = db.relationship('Subscription', backref='subscription', cascade="all, delete-orphan", lazy=True)
 
 class Subscription(db.Model): # A subscription has an area and a user

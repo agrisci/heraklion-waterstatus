@@ -4,17 +4,22 @@ from waterstatus import app
 
 from waterstatus.models import *
 from waterstatus.schemas import *
+from waterstatus import logger
 
 from datetime import date
 import os
 
 
+# UI endpoints
+
+# Route to serve frontend home
 @app.route("/")
 def main():
     index_path = os.path.join(app.static_folder, 'index.html')
     return send_file(index_path)
 
 
+# Route to forward specified route to frontend router
 @app.route('/<path:path>')
 def route_frontend(path):
     file_path = os.path.join(app.static_folder, path)
@@ -24,6 +29,8 @@ def route_frontend(path):
         index_path = os.path.join(app.static_folder, 'index.html')
         return send_file(index_path)
 
+
+# API endpoints
 
 @app.route('/api/areas', methods=['GET'])
 def get_areas():
@@ -107,7 +114,7 @@ def settings():
     return settings_schema.jsonify(settings)
   if request.method == 'PUT':
     settings = Settings.query.first()
-    settings.scraper_interval = request.json['web_scraper_interval']
+    settings.web_scraper_interval = request.json['web_scraper_interval']
     settings.server_email = request.json['server_email']
     settings.server_password = request.json['server_password']
     db.session.commit()
@@ -115,8 +122,5 @@ def settings():
 
 @app.route('/api/logs', methods=['GET'])
 def logs():
-  if request.method == 'GET':
-    month = date.today().strftime("%m-%Y")
-    directory= app.config['LOGS_DIRECTORY']
-    logs = open(f'{directory}{month}.log', encoding="utf8").read().splitlines()
-    return jsonify(logs)
+  logs = logger.read_logs()
+  return jsonify(logs)

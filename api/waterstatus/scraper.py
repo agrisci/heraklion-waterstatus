@@ -58,18 +58,20 @@ class Notifier:
                     server_email = settings_dump['server_email']
                     server_password = settings_dump['server_password']
                     email = user_dump['email']
-                    if server_email and server_password:
-                        logger.info(f"Attempting to notify via email, user {username} about area {area} status change to {status}...")
-                        self.__send_email_notification(area, email, server_email, server_password, status)
+                    if server_email and server_password:  #check if server email and password are provided
+                        if email:
+                            logger.info(f"Attempting to notify via email, user {username} about area {area} status change to {status}...")
+                            self.__send_email_notification(area, email, server_email, server_password, status)
+                        else:
+                            logger.info(f"No user email found. Skipping email notification...")
                     else:
-                        pass
-                        logger.info(f"No server email and/or password registered. Skipping email notification...")
+                        logger.info(f"No server email and/or password found. Skipping email notification...")
                 elif notifications_preffered_mode == 'Discord':
                     webhook = user_dump['discord_webhook']
                     logger.info(f"Attempting to notify via discord, user {username} about area {area} status change to {status}...")
                     self.__send_discord_notification(area, webhook, status)
                 elif notifications_preffered_mode == 'Gotify':
-                    pass
+                    logger.info("Notification method not implemented yet. Skipping email notification...")
 
     def __send_email_notification(self, area, email, server_email, server_password, status):
         if status == False:
@@ -85,9 +87,8 @@ class Notifier:
                 server.login(server_email, server_password)
                 server.sendmail(server_email, email, message.encode("utf-8"))
             logger.info(f"Email sent to {email} with subject: {text}")
-        except:
-            pass
-            logger.info("No sender email or password provided. Skipping email notification...")
+        except Exception as e:
+            logger.debug(e)
             
     def __send_discord_notification(self, area, webhook, status):
         webhook = DiscordWebhook(url=webhook)
@@ -107,14 +108,18 @@ notifications = Notifier()
 
 def scraper_thread():
     while True:
-        interval = 600
+        try:
+            settings_dump = settings_schema.dump(Settings.query.first())
+            scraper_interval = settings_dump['web_scraper_interval'] * 60
+        except: # Use this if settings table is not created yet 
+            scraper_interval = 600
         areas_changed = {}
         scraper = cloudscraper.create_scraper()
-        try:
+        try: 
             deyah = scraper.get("https://www.deyah.gr/xartis-udreusis-hrakleiou/").text
-        except:
-            logger.exception(f"Scraper Connection Error occurred. Will try again in {interval} minutes...")
-            time.sleep(interval)
+        except: # Retry in 10 minutes if connection error occurs
+            logger.info(f"Scraper Connection Error occurred. Will try again in {int(scraper_interval / 60)} minutes...")
+            time.sleep(scraper_interval)
             continue
         else:
             soup = BeautifulSoup(deyah, 'html.parser')
@@ -122,7 +127,7 @@ def scraper_thread():
                 polygon="polygon_" + str(i)
                 rows = soup.find(id=polygon)
                 try:   
-                    if rows != None:
+                    if rows:
                         name = rows.div.h4.a.text
                         no_class = rows.find('span', class_= "no")
                         yes_class = rows.find('span', class_= "yes")
@@ -145,7 +150,7 @@ def scraper_thread():
                 except:
                     pass
             notifications.area_list(areas_changed)
-            time.sleep(interval)
+            time.sleep(scraper_interval)
 
 
 

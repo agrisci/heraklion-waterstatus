@@ -10,6 +10,8 @@ COPY ui/dist/waterstatus /app/waterstatus/static
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y ca-certificates
+
 RUN pip3 install pipenv
 
 RUN pipenv lock --requirements > requirements.txt
