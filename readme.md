@@ -49,9 +49,13 @@ In the need of an application that will inform me of water cut-offs as soon as t
 
 # Installation
 
-The recommended way to install the app is using my prebuilt docker image or building your own:
+The recommended way to install the app is by using my prebuilt docker image e.g:
+
+docker run -d -p 80:80 --name heraklion-waterstatus agrisci/heraklion-waterstatus
 
 https://hub.docker.com/r/agrisci/heraklion-waterstatus
+
+or by building your own docker image...
 
 # Contributions
 
