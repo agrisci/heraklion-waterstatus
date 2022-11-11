@@ -1,0 +1,19 @@
+/* Ionic Variables and Theming. For more info, please see:
+http://ionicframework.com/docs/theming/ */
+
+@font-face {
+  font-family: "Averta-Regular";
+  src: local("Averta-Regular"), url(./Averta-Regular.woff2) format("woff");
+}
+
+@font-face {
+  font-family: "Averta-Bold";
+  src: local("Averta-Bold"), url(./Averta-Bold.woff2) format("woff");
+  font-weight: bold;
+}
+
+/** Global CSS Variables **/
+:root {
+  --ion-font-family: Averta-Regular;
+  --ion-background-color: #f5f1ee;
+}

@@ -1,0 +1,13 @@
+.text {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #313c47;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+/* .ion-card {
+  --background: #ffffff;
+} */

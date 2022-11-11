@@ -1,0 +1,39 @@
+ion-item {
+  --border-radius: 10px !important;
+  --border-style: none;
+  margin-top: 10px;
+}
+
+.custom-item {
+  --background: #ffffff;
+}
+
+ion-icon {
+  color: #313c47;
+  font-size: 22px;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+
+.is-inactive {
+  color: #ff9515;
+  font-weight: 700;
+  /* font-size: 0.9rem; */
+}
+
+.is-active {
+  color: #3fc2a3;
+  font-weight: 700;
+  /* font-size: 0.9rem; */
+}
+
+.area-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #313c47;
+}
+
+.datetime {
+  font-size: 0.9rem;
+  color: #6b6d78;
+}

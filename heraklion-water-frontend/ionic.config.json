@@ -1,0 +1,7 @@
+{
+  "name": "heraklion-water-frontend-typescript",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "heraklion-water",
+  "version": "0.0.1",
+  "description": "Backend for heraklion water status app",
+  "main": "app.js",
+  "author": "Apostolos Tanopoulos",
+  "license": "MIT",
+  "config": {
+    "dockerHubRepo": "agrisci/heraklion-water"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.11",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "firebase-admin": "^11.0.0",
+    "helmet": "^5.1.0",
+    "http": "0.0.1-security",
+    "mongoose": "^6.4.0",
+    "morgan": "^1.10.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "node-cron": "^3.0.1"
+  },
+  "scripts": {
+    "prod": "node app.js",
+    "dev": "cross-env NODE_ENV=dev nodemon app.js",
+    "docker:build": "docker build --file Dockerfile --tag=$npm_package_config_dockerHubRepo .",
+    "docker:publish": "docker image push $npm_package_config_dockerHubRepo"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
