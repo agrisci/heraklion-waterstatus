@@ -12,13 +12,13 @@ class Scraper {
     const $ = await cheerio.load(data);
     let names = [];
     let statuses = [];
-    $(".water-supply-table .row").each((i, item) => {
-      if ($(".col-sm-3 a", item).text() !== "") {
-        names.push($(".col-sm-3 a", item).text());
-        if ($(".col-sm-2 .yes", item).text() !== "") {
-          statuses.push($(".col-sm-2 .yes", item).text());
-        } else if ($(".col-sm-2 .no", item).text() !== "") {
-          statuses.push($(".col-sm-2 .no", item).text());
+    $(".water-supply-table .water-supply-table-grid").each((i, item) => {
+      if ($(".area_column", item).text() !== "") {
+        names.push($(".area_column", item).text());
+        if ($(".dianomi_column .yes", item).text() !== "") {
+          statuses.push($(".dianomi_column .yes", item).text());
+        } else if ($(".dianomi_column .no", item).text() !== "") {
+          statuses.push($(".dianomi_column .no", item).text());
         }
       }
     });
@@ -63,11 +63,18 @@ class Scraper {
   }
 }
 
-cron.schedule("*/10 * * * *", () => {
-  const scraper = new Scraper();
-  const date = new Date().toLocaleString("el-GR", {
-    timeZone: "Europe/Athens",
-  });
-  console.log("DEYAH SCRAPER --- Running a water scraping task at: ", date);
-  scraper.scrape();
+// cron.schedule("*/10 * * * *", () => {
+//   const scraper = new Scraper();
+//   const date = new Date().toLocaleString("el-GR", {
+//     timeZone: "Europe/Athens",
+//   });
+//   console.log("DEYAH SCRAPER --- Running a water scraping task at: ", date);
+//   scraper.scrape();
+// });
+
+const scraper = new Scraper();
+const date = new Date().toLocaleString("el-GR", {
+  timeZone: "Europe/Athens",
 });
+console.log("DEYAH SCRAPER --- Running a water scraping task at: ", date);
+scraper.scrape();
